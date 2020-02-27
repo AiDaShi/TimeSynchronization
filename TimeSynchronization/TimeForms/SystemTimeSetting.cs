@@ -39,7 +39,7 @@ namespace TimeSynchronization.TimeForms
             t.Month = (short)mMonth;
             t.Day = (short)mDay;
             t.Hour = (short)(dateTimePicker1.Value.Hour-8);
-            t.Milliseconds = (short)dateTimePicker1.Value.Millisecond;
+            t.Milliseconds = (short)dateTimePicker1.Value.Minute;
             t.Second = (short)dateTimePicker1.Value.Second;
             bool v = NewTimeWin32.SetSystemTime(ref t);
             if (v)
