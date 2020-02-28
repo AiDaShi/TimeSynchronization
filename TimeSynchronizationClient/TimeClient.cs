@@ -85,7 +85,7 @@ namespace TimeSynchronizationClient
                 t.Month = (short)time.Month;
                 t.Day = (short)time.Day;
                 t.Hour = (short)(time.Hour - 8);
-                t.Milliseconds = (short)time.Millisecond;
+                t.Minute = (short)time.Minute;
                 t.Second = (short)time.Second;
                 bool v = NewTimeWin32.SetSystemTime(ref t);
                 if (v)
