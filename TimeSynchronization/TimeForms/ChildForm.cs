@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TimeSynchronization.Excel;
 using TimeSynchronization.GlobleLogger;
 using TimeSynchronization.SocketTaskTools.GLB;
 
@@ -58,9 +60,37 @@ namespace TimeSynchronization.TimeForms
                 catch (Exception ex)
                 {
 
-                    SerilogHelper.Log4Debug(item.IpAddressInfo + " happened one Error . Msg: "+ex.Message, Outputoption.Error);
+                    SerilogHelper.Log4Debug(item.IpAddressInfo + " happened one Error . Msg: " + ex.Message, Outputoption.Error);
                 }
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                if (this.dataGridView1.Rows.Count > 0)
+                {
+
+                    //OpenFileDialog fileDialog = new OpenFileDialog();
+                    ////fileDialog.Filter = "Excel(97-2003)|*.xls|Excel(2007-2013)|*.xlsx";
+                    //fileDialog.Filter = "Excel|*.xls|Excel|*.xlsx";
+                    //if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                    //{
+                    //    return;
+                    //}
+                    //if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                    //{
+                    //    return;
+                    //}
+                    if (Directory.Exists(ServerVali.FilesExplot))
+                    {
+                        string onefile = ServerVali.FilesExplot + "\\" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".xls";
+                        File.Create(onefile).Close();
+                        ExcelHelper.ExportToExcel(this.dataGridView1.ToDataTable(), onefile);
+                    }//Run
+                }
+            });
         }
     }
 }

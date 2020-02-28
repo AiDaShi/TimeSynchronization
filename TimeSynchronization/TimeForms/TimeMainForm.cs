@@ -98,6 +98,7 @@ namespace TimeSynchronization.TimeForms
         private void TimeMainForm_Load(object sender, EventArgs e)
         {
             ServerVali.IP = ConfigurationManager.ConnectionStrings["Ip"].ConnectionString;
+            ServerVali.FilesExplot = ConfigurationManager.ConnectionStrings["FilesExplot"].ConnectionString;
             int portout;
             //默认端口 4850
             ServerVali.Port = 4850;
