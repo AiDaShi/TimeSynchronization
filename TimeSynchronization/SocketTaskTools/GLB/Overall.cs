@@ -21,5 +21,6 @@ namespace TimeSynchronization.SocketTaskTools.GLB
         public static Dictionary<string, Socket> lsocket = new Dictionary<string, Socket>();
         public static string HeartPackage => "*^*--^--*^*";
         public static string CryString => "$AiDaSi$";
+        public static bool ExplotButton=false;
     }
 }

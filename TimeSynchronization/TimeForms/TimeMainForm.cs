@@ -98,13 +98,20 @@ namespace TimeSynchronization.TimeForms
         private void TimeMainForm_Load(object sender, EventArgs e)
         {
             ServerVali.IP = ConfigurationManager.ConnectionStrings["Ip"].ConnectionString;
-            ServerVali.FilesExplot = ConfigurationManager.ConnectionStrings["FilesExplot"].ConnectionString;
+            ServerVali.IP = ConfigurationManager.ConnectionStrings["Ip"].ConnectionString;
+            ServerVali.FilesExplot = ConfigurationManager.ConnectionStrings["FilesExplot"].ConnectionString; 
             int portout;
             //默认端口 4850
             ServerVali.Port = 4850;
             if (int.TryParse(ConfigurationManager.ConnectionStrings["Port"].ConnectionString, out portout))
             {
                 ServerVali.Port = portout;
+            }
+            //分钟数
+            int filesExplotMinute = 10;
+            if (int.TryParse(ConfigurationManager.ConnectionStrings["FilesExplotMinute"].ConnectionString, out portout))
+            {
+                ServerVali.FilesExplotMinute = portout;
             }
             this.StartServerBtn.Tag = TheServerStartEnum.Stop;
             this.StartServerBtn.BackColor = System.Drawing.Color.Red;

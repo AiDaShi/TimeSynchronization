@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimeSynchronization.Excel;
@@ -27,10 +28,6 @@ namespace TimeSynchronization.TimeForms
         {
             this.dataGridView1.DataSource = Overall.ListIP;
 
-            Task.Factory.StartNew(() =>
-            {
-                this.dataGridView1.Refresh();
-            });
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -67,29 +64,50 @@ namespace TimeSynchronization.TimeForms
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (Overall.ExplotButton)
+            {
+                var dre = MessageBox.Show("The Explot is Run .Do you want to close it!","infomaction",MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dre == DialogResult.Yes)
+                {
+                    Overall.ExplotButton = false;
+                }
+            }
+            else
+            {
+                Overall.ExplotButton = true;
+            }
+
             Task.Factory.StartNew(() =>
             {
-                if (this.dataGridView1.Rows.Count > 0)
+                SerilogHelper.FormLog("【+】Explot Threed is open!");
+                while (Overall.ExplotButton)
                 {
-
-                    //OpenFileDialog fileDialog = new OpenFileDialog();
-                    ////fileDialog.Filter = "Excel(97-2003)|*.xls|Excel(2007-2013)|*.xlsx";
-                    //fileDialog.Filter = "Excel|*.xls|Excel|*.xlsx";
-                    //if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
-                    //{
-                    //    return;
-                    //}
-                    //if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
-                    //{
-                    //    return;
-                    //}
-                    if (Directory.Exists(ServerVali.FilesExplot))
+                    this.dataGridView1.Refresh();
+                    if (this.dataGridView1.Rows.Count > 0)
                     {
-                        string onefile = ServerVali.FilesExplot + "\\" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".xls";
-                        File.Create(onefile).Close();
-                        ExcelHelper.ExportToExcel(this.dataGridView1.ToDataTable(), onefile);
-                    }//Run
+                        //OpenFileDialog fileDialog = new OpenFileDialog();
+                        ////fileDialog.Filter = "Excel(97-2003)|*.xls|Excel(2007-2013)|*.xlsx";
+                        //fileDialog.Filter = "Excel|*.xls|Excel|*.xlsx";
+                        //if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                        //{
+                        //    return;
+                        //}
+                        //if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                        //{
+                        //    return;
+                        //}
+                        if (Directory.Exists(ServerVali.FilesExplot))
+                        {
+                            string onefile = ServerVali.FilesExplot + "\\" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".xls";
+                            File.Create(onefile).Close();
+                            ExcelHelper.ExportToExcel(this.dataGridView1.ToDataTable(), onefile);
+                        }
+                        //Run
+                    }
+                    Thread.Sleep(ServerVali.FilesExplotMinute * 1000 * 60);
+                    
                 }
+                SerilogHelper.FormLog("【-】Explot Threed is close!");
             });
         }
     }

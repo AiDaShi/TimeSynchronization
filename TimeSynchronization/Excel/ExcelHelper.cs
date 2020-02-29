@@ -1,6 +1,7 @@
 ﻿using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -84,7 +85,8 @@ namespace TimeSynchronization.Excel
                 workbook.Write(stream);
                 stream.Close();
             }
-            MessageBox.Show("导出数据成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Log.Logger.Information(filename + " 导出数据成功!");
+            //MessageBox.Show("导出数据成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             GC.Collect();
         }
         #endregion
@@ -191,7 +193,8 @@ namespace TimeSynchronization.Excel
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Log.Logger.Information(ex.Message + " 导出数据成功!");
+                //MessageBox.Show(ex.Message);
                 return null;
             }
         }
