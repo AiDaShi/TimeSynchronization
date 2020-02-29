@@ -107,11 +107,11 @@ namespace TimeSynchronization.TimeForms
             {
                 ServerVali.Port = portout;
             }
-            //分钟数
-            int filesExplotMinute = 10;
-            if (int.TryParse(ConfigurationManager.ConnectionStrings["FilesExplotMinute"].ConnectionString, out portout))
+            //秒数
+            double filesExplotSecond = 10;
+            if (double.TryParse(ConfigurationManager.ConnectionStrings["FilesExplotSecond"].ConnectionString, out filesExplotSecond))
             {
-                ServerVali.FilesExplotMinute = portout;
+                ServerVali.FilesExplotSecond = filesExplotSecond;
             }
             this.StartServerBtn.Tag = TheServerStartEnum.Stop;
             this.StartServerBtn.BackColor = System.Drawing.Color.Red;

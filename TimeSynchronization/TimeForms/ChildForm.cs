@@ -80,6 +80,7 @@ namespace TimeSynchronization.TimeForms
             Task.Factory.StartNew(() =>
             {
                 SerilogHelper.FormLog("【+】Explot Threed is open!");
+                var timesecond = (int)ServerVali.FilesExplotSecond * 1000;
                 while (Overall.ExplotButton)
                 {
                     this.dataGridView1.Refresh();
@@ -104,7 +105,7 @@ namespace TimeSynchronization.TimeForms
                         }
                         //Run
                     }
-                    Thread.Sleep(ServerVali.FilesExplotMinute * 1000 * 60);
+                    Thread.Sleep(timesecond);
                     
                 }
                 SerilogHelper.FormLog("【-】Explot Threed is close!");

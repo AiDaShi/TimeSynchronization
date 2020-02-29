@@ -11,6 +11,6 @@ namespace TimeSynchronization.GlobleLogger
         public static string IP { get; set; }
         public static int Port { get; set; }
         public static string FilesExplot { get; set; }
-        public static int FilesExplotMinute { get; set; }
+        public static double FilesExplotSecond { get; set; }
     }
 }
